@@ -20,7 +20,6 @@ const Avatars = ({ avatars, setAvatars, setUserAvatar, setComputerAvatar }) => {
         { avatar: "O", status: true },
       ]);
     }
-    console.log(avatar);
   };
 
   return (
