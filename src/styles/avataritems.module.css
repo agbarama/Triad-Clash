@@ -1,0 +1,13 @@
+.avatar {
+  font-weight: bold;
+  background-color: rgba(185, 219, 242, 0.883);
+
+  color: white;
+  padding: 5% 22%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.border {
+  background-color: rgb(0, 136, 255);
+}
