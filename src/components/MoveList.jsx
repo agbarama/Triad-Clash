@@ -14,6 +14,7 @@ const MoveList = ({
   computerScore,
   setComputerScore,
   setClickedMove,
+  setPlayMessage,
 }) => {
   const handleClick = (move) => {
     // check for matching id
@@ -29,15 +30,20 @@ const MoveList = ({
 
     setClickedMoves([...clickedMoves, clickedId]);
 
-    box1(move);
-    box2(move);
-    box3(move);
-    box4(move);
-    box5(move);
-    box6(move);
-    box7(move);
-    box8(move);
-    box9(move);
+    setPlayMessage(`${computerAvatar} Turn`);
+
+    // set a timeout so as to run computer move after 1sec of user move
+    setTimeout(() => {
+      box1(move);
+      box2(move);
+      box3(move);
+      box4(move);
+      box5(move);
+      box6(move);
+      box7(move);
+      box8(move);
+      box9(move);
+    }, 1000);
 
     // setUserScore([...userScore, move]);
     setClickedMove(move);
@@ -67,21 +73,14 @@ const MoveList = ({
       }
     }
 
+    setPlayMessage(`${userAvatar} Turn`);
+
     // Execute computer move
     arr.find((ar) =>
       ar.move === ""
         ? (ar.move = computerAvatar)
         : setComputerScore([...computerScore, arr])
     );
-
-    //   // Execute computer move
-    //   arr.find((ar) => {
-    //     if (ar.move === "") {
-    //       ar.move = computer;
-    //     }
-    //   });
-
-    //   console.log(userScore);
   };
 
   // Box 2
@@ -109,6 +108,8 @@ const MoveList = ({
       }
     }
 
+    setPlayMessage(`${userAvatar} Turn`);
+
     // Execute computer move
     arr.find((ar) => (ar.move == "" ? (ar.move = computerAvatar) : arr));
   };
@@ -135,6 +136,8 @@ const MoveList = ({
         });
       }
     }
+
+    setPlayMessage(`${userAvatar} Turn`);
 
     // Execute computer move
     arr.find((ar) =>
@@ -164,6 +167,8 @@ const MoveList = ({
         });
       }
     }
+
+    setPlayMessage(`${userAvatar} Turn`);
 
     // Execute computer move
     arr.find((ar) =>
@@ -207,6 +212,8 @@ const MoveList = ({
       }
     }
 
+    setPlayMessage(`${userAvatar} Turn`);
+
     // Execute computer move
     arr.find((ar) =>
       ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
@@ -235,6 +242,8 @@ const MoveList = ({
         });
       }
     }
+
+    setPlayMessage(`${userAvatar} Turn`);
 
     // Execute computer move
     arr.find((ar) =>
@@ -265,6 +274,8 @@ const MoveList = ({
       }
     }
 
+    setPlayMessage(`${userAvatar} Turn`);
+
     // Execute computer move
     arr.find((ar) =>
       ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
@@ -294,6 +305,8 @@ const MoveList = ({
       }
     }
 
+    setPlayMessage(`${userAvatar} Turn`);
+
     // Execute computer move
     arr.find((ar) =>
       ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
@@ -322,6 +335,8 @@ const MoveList = ({
         });
       }
     }
+
+    setPlayMessage(`${userAvatar} Turn`);
 
     // Execute computer move
     arr.find((ar) =>

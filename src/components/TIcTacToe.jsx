@@ -430,6 +430,7 @@ const TIcTacToe = () => {
           computerScore={computerScore}
           setComputerScore={setComputerScore}
           setClickedMove={setClickedMove}
+          setPlayMessage={setPlayMessage}
         />
 
         <div className={styles.move}>
