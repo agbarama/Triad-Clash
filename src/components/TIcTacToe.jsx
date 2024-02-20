@@ -17,6 +17,7 @@ const TIcTacToe = () => {
     { id: 9, move: "" },
   ]);
 
+  const [clickedMoves, setClickedMoves] = useState([]);
   const [clickedMove, setClickedMove] = useState();
 
   // Avatars array of objects
@@ -30,18 +31,6 @@ const TIcTacToe = () => {
   const [computerAvatar, setComputerAvatar] = useState("O");
 
   const [playMessage, setPlayMessage] = useState("Start game or select player");
-  // const [rrow, setRrow] = useState("");
-
-  // Object to alert score
-  const [score, setScore] = useState({
-    row1: "",
-    row2: "",
-    row3: "",
-    column1: "",
-    column2: "",
-    column3: "",
-    slide: "",
-  });
 
   const [userScore, setUserScore] = useState([]);
 
@@ -290,33 +279,15 @@ const TIcTacToe = () => {
   //   });
   // }, [clickedMove]);
 
-  // useEffect(() => {
-  //   setScore({
-  //     ...score,
-  //     column1: rrow,
-  //   });
-  // }, [userScore]);
-
-  if (score.row1 === "1,2,3") {
-    alert("You lose, row 1");
-  } else if (score.row2 === "4,5,6") {
-    alert("You lose, row 2");
-  } else if (score.row3 === "7,8,9") {
-    alert("You lose, row 3");
-  } else if (score.column1 === "1,4,7") {
-    alert("You lose, column 1");
-  } else if (score.column2 === "2,5,8") {
-    alert("You lose, column 2");
-  } else if (score.column3 === "3,6,9") {
-    alert("You lose, column 3");
-  } else if (score.slide === "1,5,9") {
-    alert("You lose, slide");
-  } else {
-    // alert("Draw");
-  }
-
   const [computerScore, setComputerScore] = useState([]);
   useEffect(() => {
+    // push object ids containing moves to the total array
+    moves.map((move) => {
+      if (move.move !== "") {
+        setClickedMoves([...clickedMoves, move.id]);
+      }
+    });
+
     // array to save mapped boxes with 'O'
     const computeScore = [];
 
@@ -386,12 +357,7 @@ const TIcTacToe = () => {
       }
     });
 
-    // check the array for specific numbers and run code
-    if (column2.includes(2) && column2.includes(5) && column2.includes(8)) {
-      console.log("true");
-      console.log(column2);
-    }
-
+    // code to run to display scores
     if (row1.includes(1) && row1.includes(2) && row1.includes(3)) {
       alert("You lose, row 1");
     } else if (row2.includes(4) && row2.includes(5) && row2.includes(6)) {
@@ -418,30 +384,9 @@ const TIcTacToe = () => {
       alert("You lose, column 3");
     } else if (slide.includes(1) && slide.includes(5) && slide.includes(9)) {
       alert("You lose, slide");
-    } else {
-      // alert("Draw");
+    } else if (clickedMoves.length >= 7) {
+      alert("Draw");
     }
-
-    const rowOne = row1.join(",");
-    const rowTwo = row2.join(",");
-    const rowThree = row3.join(",");
-    const columnOne = column1.join(",");
-    const columnTwo = column2.join(",");
-    const columnThree = column3.join(",");
-    const slid = slide.join(",");
-
-    setScore({ ...score, slide: slid });
-    setScore({
-      ...score,
-      row1: rowOne,
-      score,
-      row2: rowTwo,
-      row3: rowThree,
-      column1: columnOne,
-      column2: columnTwo,
-      colum3: columnThree,
-      slide: slid,
-    });
   }, [moves]);
 
   // const [userScore, setUserScore] = useState([]);
@@ -449,8 +394,6 @@ const TIcTacToe = () => {
 
   // const [computerScore, setComputerScore] = useState([]);
   const [computerRow, setComputerRow] = useState([]);
-
-  const [clickedMoves, setClickedMoves] = useState([]);
 
   // function to reset game
   const handleReset = () => {

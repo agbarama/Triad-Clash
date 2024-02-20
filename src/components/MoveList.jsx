@@ -41,6 +41,7 @@ const MoveList = ({
 
     // setUserScore([...userScore, move]);
     setClickedMove(move);
+    // setTotalMoves([...totalMoves, move]);
   };
 
   // Box 1
