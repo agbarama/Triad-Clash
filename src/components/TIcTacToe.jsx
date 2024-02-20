@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/tictactoe.module.css";
-import Move from "./Move";
+import MoveList from "./MoveList";
+import AvatarList from "./AvatarList";
 
 const TIcTacToe = () => {
+  // Looped moves
   const [moves, setMoves] = useState([
     { id: 1, move: "" },
     { id: 2, move: "" },
@@ -15,328 +17,482 @@ const TIcTacToe = () => {
     { id: 9, move: "" },
   ]);
 
-  const [clickedMoves, setClikedMoves] = useState([]);
+  const [clickedMove, setClickedMove] = useState();
 
-  const user = "X";
-  const computer = "O";
+  // Avatars array of objects
+  const [avatars, setAvatars] = useState([
+    { avatar: "X", status: true },
+    { avatar: "O", status: false },
+  ]);
 
-  const handleClick = (move) => {
-    // check for matching id
-    const clickedId = moves.findIndex((movve) => movve.id === move.id);
-    const updatedMoves = [...moves];
-    updatedMoves[clickedId].move = user;
+  //avatars saved seperated on a state
+  const [userAvatar, setUserAvatar] = useState("X");
+  const [computerAvatar, setComputerAvatar] = useState("O");
 
-    clickedMoves.map((clicked) =>
-      clicked === clickedId
-        ? console.log("already clicked")
-        : setMoves(updatedMoves)
+  const [playMessage, setPlayMessage] = useState("Start game or select player");
+  // const [rrow, setRrow] = useState("");
+
+  // Object to alert score
+  const [score, setScore] = useState({
+    row1: "",
+    row2: "",
+    row3: "",
+    column1: "",
+    column2: "",
+    column3: "",
+    slide: "",
+  });
+
+  const [userScore, setUserScore] = useState([]);
+
+  // useEffect(()=> {
+
+  //     moves.map((move) =>
+  //     move.move !== "" ? setUserScore([...userScore, move]) : moves
+  //   );
+  //   userScore.map(()=> )
+  // }, [userScore])
+
+  // useEffect(() => {
+  //   const usserScore = [];
+
+  //   // score objects arrays
+  //   const row1 = [];
+  //   const row2 = [];
+  //   const row3 = [];
+  //   const column1 = [];
+  //   const column2 = [];
+  //   const column3 = [];
+  //   const slide = [];
+
+  //   moves.map((move) =>
+  //     move.move !== "" ? setUserScore([...userScore, move]) : moves
+  //   );
+
+  //   // console.log(userScore);
+
+  //   let one;
+  //   let two;
+  //   let three;
+  //   let four;
+  //   let five;
+  //   let six;
+  //   let seven;
+  //   let eight;
+  //   let nine;
+
+  //   // userScore.map((u) => {
+  //   //   if (u.id === 2) {
+  //   //     one = u.id;
+  //   //     console.log(u.id);
+  //   //   }
+  //   // });
+
+  //   // for id 1
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 1) {
+  //       one = uScore.id;
+  //       if (!row1.includes(uScore.id)) {
+  //         row1.push(...row1, uScore.id);
+  //       }
+
+  //       if (!column1.includes(uScore.id)) {
+  //         column1.push(...column1, uScore.id);
+  //       }
+
+  //       if (!slide.includes(uScore.id)) {
+  //         slide.push(...slide, uScore.id);
+  //       }
+
+  //       // row1.push(...row1, uScore.id);
+  //       // column1.push(...column1, uScore.id);
+  //       // slide.push(...slide, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 2
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 2) {
+  //       two = uScore.id;
+  //       // column2.push(...column1, one);
+
+  //       console.log(one);
+
+  //       // column2.push(...column1, uScore.id);
+
+  //       const same = 2;
+
+  //       if (!row1.includes(uScore.id)) {
+  //         row1.push(...row1, uScore.id);
+  //       }
+  //       if (!column2.includes(same)) {
+  //         column2.push(...column2, same);
+  //       } else {
+  //         console.log("same");
+  //         console.log(column2);
+  //       }
+  //     }
+  //   });
+
+  //   // for id 3
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 3) {
+  //       three = uScore.id;
+
+  //       if (!row1.includes(uScore.id)) {
+  //         row1.push(...row1, uScore.id);
+  //       }
+
+  //       if (!column3.includes(uScore.id)) {
+  //         column3.push(...column3, uScore.id);
+  //       }
+
+  //       // row1.push(...row1, uScore.id);
+  //       // column3.push(...column3, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 4
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 4) {
+  //       four = uScore.id;
+
+  //       if (!row2.includes(uScore.id)) {
+  //         row2.push(...row2, uScore.id);
+  //       }
+  //       if (!column1.includes(uScore.id)) {
+  //         column1.push(...column1, uScore.id);
+  //       }
+
+  //       // row2.push(...row2, uScore.id);
+  //       // column1.push(...column1, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 5
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 5) {
+  //       five = uScore.id;
+
+  //       const same = uScore.id;
+
+  //       if (!row2.includes(uScore.id)) {
+  //         row2.push(...row2, uScore.id);
+  //       }
+
+  //       if (!column2.includes(same)) {
+  //         column2.push(...column2, same);
+  //       }
+
+  //       if (!slide.includes(uScore.id)) {
+  //         slide.push(...slide, uScore.id);
+  //       }
+
+  //       // row2.push(...row2, uScore.id);
+  //       // column2.push(...column2, uScore.id);
+  //       // slide.push(...slide, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 6
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 6) {
+  //       six = uScore.id;
+
+  //       if (!row2.includes(uScore.id)) {
+  //         row2.push(...row2, uScore.id);
+  //       }
+  //       if (!column2.includes(uScore.id)) {
+  //         column2.push(...column2, uScore.id);
+  //       }
+  //       // row2.push(...row2, uScore.id);
+  //       // column2.push(...column2, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 7
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 7) {
+  //       seven = uScore.id;
+
+  //       if (!row3.includes(uScore.id)) {
+  //         row3.push(...row3, uScore.id);
+  //       }
+
+  //       if (!column1.includes(uScore.id)) {
+  //         column1.push(...column1, uScore.id);
+  //       }
+  //       // row3.push(...row3, uScore.id);
+  //       // column1.push(...column1, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 8
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 8) {
+  //       eight = uScore.id;
+
+  //       const same = uScore.id;
+
+  //       if (!row3.includes(uScore.id)) {
+  //         row3.push(...row3, uScore.id);
+  //       }
+
+  //       if (!column2.includes(same)) {
+  //         column2.push(...column2, same);
+  //       }
+  //       // row3.push(...row3, uScore.id);
+  //       // column2.push(...column2, uScore.id);
+  //     }
+  //   });
+
+  //   // for id 9
+  //   userScore.map((uScore) => {
+  //     if (uScore.id === 9) {
+  //       nine = uScore.id;
+
+  //       if (!row3.includes(uScore.id)) {
+  //         row3.push(...row3, uScore.id);
+  //       }
+  //       if (!column3.includes(uScore.id)) {
+  //         column3.push(...column3, uScore.id);
+  //       }
+  //       if (!slide.includes(uScore.id)) {
+  //         slide.push(...slide, uScore.id);
+  //       }
+  //       // row3.push(...row3, uScore.id);
+  //       // column3.push(...column3, uScore.id);
+  //       // slide.push(...slide, uScore.id);
+  //     }
+  //   });
+
+  //   console.log(column2);
+
+  //   const rowOne = row1.join(",");
+  //   const rowTwo = row2.join(",");
+  //   const rowThree = row3.join(",");
+
+  //   const columnOne = column1.join(",");
+  //   const columnTwo = column2.join(",");
+  //   const columnThree = column3.join(",");
+  //   const slid = slide.join(",");
+
+  //   setScore({
+  //     ...score,
+  //     row1: rowOne,
+  //     score,
+  //     row2: rowTwo,
+  //     row3: rowThree,
+  //     column1: columnOne,
+  //     column2: columnTwo,
+  //     colum3: columnThree,
+  //     slide: slid,
+  //   });
+  // }, [clickedMove]);
+
+  // useEffect(() => {
+  //   setScore({
+  //     ...score,
+  //     column1: rrow,
+  //   });
+  // }, [userScore]);
+
+  if (score.row1 === "1,2,3") {
+    alert("You lose, row 1");
+  } else if (score.row2 === "4,5,6") {
+    alert("You lose, row 2");
+  } else if (score.row3 === "7,8,9") {
+    alert("You lose, row 3");
+  } else if (score.column1 === "1,4,7") {
+    alert("You lose, column 1");
+  } else if (score.column2 === "2,5,8") {
+    alert("You lose, column 2");
+  } else if (score.column3 === "3,6,9") {
+    alert("You lose, column 3");
+  } else if (score.slide === "1,5,9") {
+    alert("You lose, slide");
+  } else {
+    // alert("Draw");
+  }
+
+  const [computerScore, setComputerScore] = useState([]);
+  useEffect(() => {
+    // array to save mapped boxes with 'O'
+    const computeScore = [];
+
+    // score objects arrays
+    const row1 = [];
+    const row2 = [];
+    const row3 = [];
+    const column1 = [];
+    const column2 = [];
+    const column3 = [];
+    const slide = [];
+
+    // map and save id to array above
+    moves.map((move) =>
+      move.move === computerAvatar
+        ? computeScore.push(...computerScore, move.id)
+        : moves
     );
 
-    setClikedMoves([...clickedMoves, clickedId]);
-
-    box1(move);
-    box2(move);
-    box3(move);
-    box4(move);
-    box5(move);
-    box6(move);
-    box7(move);
-    box8(move);
-    box9(move);
-  };
-
-  // Box 1
-  const box1 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 1) {
-      moves.map((movve) => {
-        if (movve.id === 2 || movve.id === 3) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 2 & 3 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 2 & 3 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 4 || movve.id === 7 ? arr.push(...arr, movve) : moves;
-        });
+    computeScore.map((scr) => {
+      if (scr === 1) {
+        row1.push(...row1, scr);
+        column1.push(...column1, scr);
+        slide.push(...slide, scr);
       }
+
+      if (scr === 2) {
+        row1.push(...row1, scr);
+        column2.push(...column2, scr);
+      }
+
+      if (scr === 3) {
+        row1.push(...row1, scr);
+        column3.push(...column3, scr);
+      }
+
+      if (scr === 4) {
+        row2.push(...row2, scr);
+        column1.push(...column1, scr);
+      }
+
+      if (scr === 5) {
+        row2.push(...row2, scr);
+        column2.push(...column2, 5);
+        slide.push(...slide, scr);
+      }
+
+      if (scr === 6) {
+        row2.push(...row2, scr);
+        column3.push(...column3, scr);
+      }
+
+      if (scr === 7) {
+        row3.push(...row3, scr);
+        column1.push(...column1, scr);
+      }
+
+      if (scr === 8) {
+        row3.push(...row3, scr);
+        column2.push(...column2, scr);
+      }
+
+      if (scr === 9) {
+        row3.push(...row3, scr);
+        column3.push(...column3, scr);
+        slide.push(...slide, scr);
+      }
+    });
+
+    // check the array for specific numbers and run code
+    if (column2.includes(2) && column2.includes(5) && column2.includes(8)) {
+      console.log("true");
+      console.log(column2);
     }
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
-
-  // Box 2
-  const box2 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 2) {
-      moves.map((movve) => {
-        if (movve.id === 1 || movve.id === 3) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 1 & 3 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 1 & 3 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 5 || movve.id === 8 ? arr.push(...arr, movve) : moves;
-        });
-      }
+    if (row1.includes(1) && row1.includes(2) && row1.includes(3)) {
+      alert("You lose, row 1");
+    } else if (row2.includes(4) && row2.includes(5) && row2.includes(6)) {
+      alert("You lose, row 2");
+    } else if (row3.includes(7) && row3.includes(8) && row3.includes(9)) {
+      alert("You lose, row 3");
+    } else if (
+      column1.includes(1) &&
+      column1.includes(4) &&
+      column1.includes(7)
+    ) {
+      alert("You lose, column 1");
+    } else if (
+      column2.includes(2) &&
+      column2.includes(5) &&
+      column2.includes(8)
+    ) {
+      alert("You lose, column 2");
+    } else if (
+      column3.includes(3) &&
+      column3.includes(6) &&
+      column3.includes(9)
+    ) {
+      alert("You lose, column 3");
+    } else if (slide.includes(1) && slide.includes(5) && slide.includes(9)) {
+      alert("You lose, slide");
+    } else {
+      // alert("Draw");
     }
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
+    const rowOne = row1.join(",");
+    const rowTwo = row2.join(",");
+    const rowThree = row3.join(",");
+    const columnOne = column1.join(",");
+    const columnTwo = column2.join(",");
+    const columnThree = column3.join(",");
+    const slid = slide.join(",");
 
-  // Box 3
-  const box3 = (move) => {
-    const arr = [];
-    let filledBox;
+    setScore({ ...score, slide: slid });
+    setScore({
+      ...score,
+      row1: rowOne,
+      score,
+      row2: rowTwo,
+      row3: rowThree,
+      column1: columnOne,
+      column2: columnTwo,
+      colum3: columnThree,
+      slide: slid,
+    });
+  }, [moves]);
 
-    if (move.id === 3) {
-      moves.map((movve) => {
-        if (movve.id === 1 || movve.id === 2) {
-          arr.push(...arr, movve);
+  // const [userScore, setUserScore] = useState([]);
+  const [userResult, setUserResult] = useState([]);
 
-          // map through and check if move 1 & 2 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
+  // const [computerScore, setComputerScore] = useState([]);
+  const [computerRow, setComputerRow] = useState([]);
 
-      // Run this code if box 1 & 2 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 6 || movve.id === 9 ? arr.push(...arr, movve) : moves;
-        });
-      }
-    }
+  const [clickedMoves, setClickedMoves] = useState([]);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
+  // function to reset game
+  const handleReset = () => {
+    // map and save all objects containing a move
+    const clear = moves.map((move) => (move.move !== "" ? move : ""));
 
-  // Box 4
-  const box4 = (move) => {
-    const arr = [];
-    let filledBox;
+    // change all mapped move to an empty string
+    clear.map((clr) => (clr.move = ""));
 
-    if (move.id === 4) {
-      moves.map((movve) => {
-        if (movve.id === 5 || movve.id === 6) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 5 & 6 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 5 & 6 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 1 || movve.id === 7 ? arr.push(...arr, movve) : moves;
-        });
-      }
-    }
-
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
-
-  // Box 5
-  const box5 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 5) {
-      moves.map((movve) => {
-        if (movve.id === 4 || movve.id === 6) {
-          arr.push(...arr, movve);
-          console.log(arr);
-
-          // map through and check if move 4 & 6 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 5 & 6 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 2 || movve.id === 8 ? arr.push(...arr, movve) : moves;
-
-          // map through and check if move 2, 4, 6 & 8 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? "true2" : false));
-        });
-      }
-
-      // Run this code if box 2, 4, 6 & 8 is filled
-      if (filledBox[0] === "true2") {
-        moves.map((movve) => {
-          movve.id === 1 || movve.id === 9 ? arr.push(...arr, movve) : moves;
-
-          // map through and check if move 2, 4, 6 & 8 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? "true2" : false));
-        });
-      }
-    }
-
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
-
-  // Box 6
-  const box6 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 6) {
-      moves.map((movve) => {
-        if (movve.id === 4 || movve.id === 5) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 4 & 5 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 4 & 5 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 3 || movve.id === 9 ? arr.push(...arr, movve) : moves;
-        });
-      }
-    }
-
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
-
-  // Box 7
-  const box7 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 7) {
-      moves.map((movve) => {
-        if (movve.id === 8 || movve.id === 9) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 8 & 9 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 8 & 9 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 1 || movve.id === 4 ? arr.push(...arr, movve) : moves;
-        });
-      }
-    }
-
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
-
-  // Box 8
-  const box8 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 8) {
-      moves.map((movve) => {
-        if (movve.id === 7 || movve.id === 9) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 7 & 9 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 7 & 9 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 2 || movve.id === 5 ? arr.push(...arr, movve) : moves;
-        });
-      }
-    }
-
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
-  };
-
-  // Box 9
-  const box9 = (move) => {
-    const arr = [];
-    let filledBox;
-
-    if (move.id === 9) {
-      moves.map((movve) => {
-        if (movve.id === 7 || movve.id === 8) {
-          arr.push(...arr, movve);
-
-          // map through and check if move 7 & 8 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
-        }
-      });
-
-      // Run this code if box 7 & 8 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 3 || movve.id === 6 ? arr.push(...arr, movve) : moves;
-        });
-      }
-    }
-
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move == "" ? (ar.move = computer) : console.log("uuu")
-    );
+    // set moves to clear
+    setMoves(clear);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.gameContainer}>
-        <div className={styles.play}>It's your turn</div>
-        <div className={styles.boxesContainer}>
-          <div className={styles.boxes}>
-            {moves.map((move) => (
-              <Move
-                key={move.id}
-                move={move}
-                onClick={() => handleClick(move)}
-              />
-            ))}
-          </div>
-        </div>
+        <AvatarList
+          avatars={avatars}
+          setAvatars={setAvatars}
+          setUserAvatar={setUserAvatar}
+          setComputerAvatar={setComputerAvatar}
+        />
+
+        <div className={styles.play}>{playMessage}</div>
+        <MoveList
+          moves={moves}
+          setMoves={setMoves}
+          clickedMoves={clickedMoves}
+          setClickedMoves={setClickedMoves}
+          userAvatar={userAvatar}
+          computerAvatar={computerAvatar}
+          userScore={userScore}
+          setUserScore={setUserScore}
+          computerScore={computerScore}
+          setComputerScore={setComputerScore}
+          setClickedMove={setClickedMove}
+        />
+
         <div className={styles.move}>
-          <div>Reset Game </div>
+          <div className={styles.resetGame} onClick={handleReset}>
+            Reset Game{" "}
+          </div>
           <div>Taunt</div>
         </div>
       </div>
@@ -347,7 +503,7 @@ const TIcTacToe = () => {
             Playing in: <span className={styles.grey}>room-3</span>
           </div>
           <div className={styles.avatar}>
-            You are: <span className={styles.grey}>x</span>
+            You are: <span className={styles.grey}>{userAvatar}</span>
           </div>
         </div>
 

@@ -13,6 +13,7 @@ const MoveList = ({
   setUserScore,
   computerScore,
   setComputerScore,
+  setClickedMove,
 }) => {
   const handleClick = (move) => {
     // check for matching id
@@ -38,7 +39,8 @@ const MoveList = ({
     box8(move);
     box9(move);
 
-    setUserScore([...userScore, move]);
+    // setUserScore([...userScore, move]);
+    setClickedMove(move);
   };
 
   // Box 1
