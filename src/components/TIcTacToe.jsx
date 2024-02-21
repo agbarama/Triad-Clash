@@ -7,15 +7,15 @@ import DisplayWinner from "./DisplayWinner";
 const TIcTacToe = () => {
   // Looped moves
   const [moves, setMoves] = useState([
-    { id: 1, move: "" },
-    { id: 2, move: "" },
-    { id: 3, move: "" },
-    { id: 4, move: "" },
-    { id: 5, move: "" },
-    { id: 6, move: "" },
-    { id: 7, move: "" },
-    { id: 8, move: "" },
-    { id: 9, move: "" },
+    { id: 1, move: "", win: false },
+    { id: 2, move: "", win: false },
+    { id: 3, move: "", win: false },
+    { id: 4, move: "", win: false },
+    { id: 5, move: "", win: false },
+    { id: 6, move: "", win: false },
+    { id: 7, move: "", win: false },
+    { id: 8, move: "", win: false },
+    { id: 9, move: "", win: false },
   ]);
 
   const [clickedMoves, setClickedMoves] = useState([]);
@@ -59,20 +59,38 @@ const TIcTacToe = () => {
     let compColumn33 = [];
     let compSlide = [];
 
-    const displayScore = (array) => {
+    const displayScore = (array, x1, x2, x3) => {
       if (array.length === 3) {
         if (
           array[0].move === computerAvatar &&
           array[1].move === computerAvatar &&
           array[2].move === computerAvatar
         ) {
+          moves.map((move) => {
+            if (move.id === x1 || move.id === x2 || move.id === x3) {
+              move.win = true;
+              console.log(move);
+            } else {
+              move;
+            }
+          });
+
+          setMoves(moves);
+          console.log(moves);
+
           setPlayMessage("Game Over");
-          setIsWinner(true);
-          setWinner(computerAvatar);
+
+          setTimeout(() => {
+            setIsWinner(true);
+            setWinner(computerAvatar);
+          }, 3000);
         } else {
           setPlayMessage("Game Over");
-          setIsWinner(true);
-          setWinner(userAvatar);
+
+          setTimeout(() => {
+            setWinner(userAvatar);
+            setIsWinner(true);
+          }, 3000);
         }
       }
     };
@@ -86,7 +104,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userRow11.push(move);
             console.log(userRow11);
-            displayScore(userRow11);
+            displayScore(userRow11, 1, 2, 3);
           }
         }
 
@@ -96,7 +114,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userRow22.push(move);
             console.log(userRow22);
-            displayScore(userRow22);
+            displayScore(userRow22, 4, 5, 6);
           }
         }
 
@@ -106,7 +124,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userRow33.push(move);
             console.log(userRow33);
-            displayScore(userRow33);
+            displayScore(userRow33, 7, 8, 9);
           }
         }
 
@@ -116,7 +134,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userColumn11.push(move);
             console.log(userColumn11);
-            displayScore(userColumn11);
+            displayScore(userColumn11, 1, 4, 7);
           }
         }
 
@@ -126,7 +144,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userColumn22.push(move);
             console.log(userColumn22);
-            displayScore(userColumn22);
+            displayScore(userColumn22, 2, 5, 8);
           }
         }
 
@@ -146,7 +164,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userSlide.push(move);
             console.log(userSlide);
-            displayScore(userSlide);
+            displayScore(userSlide, 1, 5, 9);
           }
         }
       }
@@ -159,7 +177,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compRow11.push(move);
             console.log(compRow11);
-            displayScore(compRow11);
+            displayScore(compRow11, 1, 2, 3);
           }
         }
 
@@ -169,7 +187,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compRow22.push(move);
             console.log(compRow22);
-            displayScore(compRow22);
+            displayScore(compRow22, 4, 5, 6);
           }
         }
 
@@ -179,7 +197,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compRow33.push(move);
             console.log(compRow33);
-            displayScore(compRow33);
+            displayScore(compRow33, 7, 8, 9);
           }
         }
 
@@ -189,7 +207,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compColumn11.push(move);
             console.log(compColumn11);
-            displayScore(compColumn11);
+            displayScore(compColumn11, 1, 4, 7);
           }
         }
 
@@ -199,7 +217,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compColumn22.push(move);
             console.log(compColumn22);
-            displayScore(compColumn22);
+            displayScore(compColumn22, 2, 5, 8);
           }
         }
 
@@ -209,7 +227,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compColumn33.push(move);
             console.log(compColumn33);
-            displayScore(compColumn33);
+            displayScore(compColumn33, 3, 6, 9);
           }
         }
 
@@ -219,7 +237,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             compSlide.push(move);
             console.log(compSlide);
-            displayScore(compSlide);
+            displayScore(compSlide, 1, 5, 9);
           }
         }
       }
@@ -589,14 +607,25 @@ const TIcTacToe = () => {
 
   // function to reset game
   const handleReset = () => {
-    // map and save all objects containing a move
-    const clear = moves.map((move) => (move.move !== "" ? move : ""));
+    setIsWinner(false);
+    setPlayMessage("Start game or select player");
+    // map and save all objects containing a move and also return back objects that are empty
+    const clearMoves = moves.map((move) => (move.move !== "" ? move : move));
+
+    // map and save all objects containing win as true
+    const clearWins = moves.map((move) => (move.move !== "" ? move : move));
 
     // change all mapped move to an empty string
-    clear.map((clr) => (clr.move = ""));
+    clearMoves.map((clr) => (clr.move = ""));
+
+    // change all mapped win to false
+    clearWins.map((clr) => (clr.win = false));
 
     // set moves to clear
-    setMoves(clear);
+    setMoves(clearMoves);
+
+    // set wins to false
+    setMoves(clearWins);
   };
 
   return (
@@ -632,7 +661,7 @@ const TIcTacToe = () => {
 
         <div className={styles.move}>
           <div className={styles.resetGame} onClick={handleReset}>
-            Reset Game{" "}
+            Reset Game
           </div>
           <div>Taunt</div>
         </div>
