@@ -19,6 +19,8 @@ const TIcTacToe = () => {
 
   const [clickedMoves, setClickedMoves] = useState([]);
   const [clickedMove, setClickedMove] = useState();
+  const [scores, setScores] = useState([]);
+  const [computerScore, setComputerScore] = useState([]);
 
   // Avatars array of objects
   const [avatars, setAvatars] = useState([
@@ -33,6 +35,195 @@ const TIcTacToe = () => {
   const [playMessage, setPlayMessage] = useState("Start game or select player");
 
   const [userScore, setUserScore] = useState([]);
+  const [column2, setColumn2] = useState([]);
+
+  // user
+  let userRow11 = [];
+  let userRow22 = [];
+  let userRow33 = [];
+  let userColumn11 = [];
+  let userColumn22 = [];
+  let userColumn33 = [];
+  let userSlide = [];
+
+  // computer
+  let compRow11 = [];
+  let compRow22 = [];
+  let compRow33 = [];
+  let compColumn11 = [];
+  let compColumn22 = [];
+  let compColumn33 = [];
+  let compSlide = [];
+
+  const displayScore = (array) => {
+    if (array.length === 3) {
+      if (
+        array[0].move === computerAvatar &&
+        array[1].move === computerAvatar &&
+        array[2].move === computerAvatar
+      ) {
+        console.log("Winner", computerAvatar);
+      } else {
+        console.log("winner", userAvatar);
+      }
+    }
+  };
+
+  moves.map((move) => {
+    // Run only when move is equal to userAvatar
+    if (move.move === userAvatar) {
+      // for row 1
+      if (move.id === 1 || move.id === 2 || move.id === 3) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userRow11.push(move);
+          console.log(userRow11);
+          displayScore(userRow11);
+        }
+      }
+
+      // for row 2
+      if (move.id === 4 || move.id === 5 || move.id === 6) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userRow22.push(move);
+          console.log(userRow22);
+          displayScore(userRow22);
+        }
+      }
+
+      // for row 3
+      if (move.id === 7 || move.id === 8 || move.id === 9) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userRow33.push(move);
+          console.log(userRow33);
+          displayScore(userRow33);
+        }
+      }
+
+      // for column 1
+      if (move.id === 1 || move.id === 4 || move.id === 7) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userColumn11.push(move);
+          console.log(userColumn11);
+          displayScore(userColumn11);
+        }
+      }
+
+      // for column 2
+      if (move.id === 2 || move.id === 5 || move.id === 8) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userColumn22.push(move);
+          console.log(userColumn22);
+          displayScore(userColumn22);
+        }
+      }
+
+      // for column 3
+      if (move.id === 3 || move.id === 6 || move.id === 9) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userColumn33.push(move);
+          console.log(userColumn33);
+          displayScore(userColumn33);
+        }
+      }
+
+      // for slide
+      if (move.id === 1 || move.id === 5 || move.id === 9) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          userSlide.push(move);
+          console.log(userSlide);
+          displayScore(userSlide);
+        }
+      }
+    }
+
+    // Run only when move is equal to computerAvatar
+    if (move.move === computerAvatar) {
+      // for row 1
+      if (move.id === 1 || move.id === 2 || move.id === 3) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compRow11.push(move);
+          console.log(compRow11);
+          displayScore(compRow11);
+        }
+      }
+
+      // for row 2
+      if (move.id === 4 || move.id === 5 || move.id === 6) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compRow22.push(move);
+          console.log(compRow22);
+          displayScore(compRow22);
+        }
+      }
+
+      // for row 3
+      if (move.id === 7 || move.id === 8 || move.id === 9) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compRow33.push(move);
+          console.log(compRow33);
+          displayScore(compRow33);
+        }
+      }
+
+      // for column 1
+      if (move.id === 1 || move.id === 4 || move.id === 7) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compColumn11.push(move);
+          console.log(compColumn11);
+          displayScore(compColumn11);
+        }
+      }
+
+      // for column 2
+      if (move.id === 2 || move.id === 5 || move.id === 8) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compColumn22.push(move);
+          console.log(compColumn22);
+          displayScore(compColumn22);
+        }
+      }
+
+      // for column 3
+      if (move.id === 3 || move.id === 6 || move.id === 9) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compColumn33.push(move);
+          console.log(compColumn33);
+          displayScore(compColumn33);
+        }
+      }
+
+      // for slide
+      if (move.id === 1 || move.id === 5 || move.id === 9) {
+        // to make sure selected moves are not empty before adding them to the array
+        if (move.move !== "") {
+          compSlide.push(move);
+          console.log(compSlide);
+          displayScore(compSlide);
+        }
+      }
+    }
+  });
+
+  // useEffect(() => {
+  //   moves.map((move) => {
+  //     if (move.move === computerAvatar) {
+  //       setScores([...scores, move]);
+  //     }
+  //   });
+  // }, [moves]);
 
   // useEffect(()=> {
 
@@ -279,115 +470,107 @@ const TIcTacToe = () => {
   //   });
   // }, [clickedMove]);
 
-  const [computerScore, setComputerScore] = useState([]);
-  useEffect(() => {
-    // push object ids containing moves to the total array
-    moves.map((move) => {
-      if (move.move !== "") {
-        setClickedMoves([...clickedMoves, move.id]);
-      }
-    });
+  // useEffect(() => {
+  //   // array to save mapped boxes with 'O'
+  //   const computeScore = [];
 
-    // array to save mapped boxes with 'O'
-    const computeScore = [];
+  //   // score objects arrays
+  //   const row1 = [];
+  //   const row2 = [];
+  //   const row3 = [];
+  //   const column1 = [];
+  //   const column2 = [];
+  //   const column3 = [];
+  //   const slide = [];
 
-    // score objects arrays
-    const row1 = [];
-    const row2 = [];
-    const row3 = [];
-    const column1 = [];
-    const column2 = [];
-    const column3 = [];
-    const slide = [];
+  //   // map and save id to array above
+  //   moves.map((move) =>
+  //     move.move === computerAvatar
+  //       ? computeScore.push(...computerScore, move.id)
+  //       : moves
+  //   );
 
-    // map and save id to array above
-    moves.map((move) =>
-      move.move === computerAvatar
-        ? computeScore.push(...computerScore, move.id)
-        : moves
-    );
+  //   computeScore.map((scr) => {
+  //     if (scr === 1) {
+  //       row1.push(...row1, scr);
+  //       column1.push(...column1, scr);
+  //       slide.push(...slide, scr);
+  //     }
 
-    computeScore.map((scr) => {
-      if (scr === 1) {
-        row1.push(...row1, scr);
-        column1.push(...column1, scr);
-        slide.push(...slide, scr);
-      }
+  //     if (scr === 2) {
+  //       row1.push(...row1, scr);
+  //       column2.push(...column2, scr);
+  //     }
 
-      if (scr === 2) {
-        row1.push(...row1, scr);
-        column2.push(...column2, scr);
-      }
+  //     if (scr === 3) {
+  //       row1.push(...row1, scr);
+  //       column3.push(...column3, scr);
+  //     }
 
-      if (scr === 3) {
-        row1.push(...row1, scr);
-        column3.push(...column3, scr);
-      }
+  //     if (scr === 4) {
+  //       row2.push(...row2, scr);
+  //       column1.push(...column1, scr);
+  //     }
 
-      if (scr === 4) {
-        row2.push(...row2, scr);
-        column1.push(...column1, scr);
-      }
+  //     if (scr === 5) {
+  //       row2.push(...row2, scr);
+  //       column2.push(...column2, 5);
+  //       slide.push(...slide, scr);
+  //     }
 
-      if (scr === 5) {
-        row2.push(...row2, scr);
-        column2.push(...column2, 5);
-        slide.push(...slide, scr);
-      }
+  //     if (scr === 6) {
+  //       row2.push(...row2, scr);
+  //       column3.push(...column3, scr);
+  //     }
 
-      if (scr === 6) {
-        row2.push(...row2, scr);
-        column3.push(...column3, scr);
-      }
+  //     if (scr === 7) {
+  //       row3.push(...row3, scr);
+  //       column1.push(...column1, scr);
+  //     }
 
-      if (scr === 7) {
-        row3.push(...row3, scr);
-        column1.push(...column1, scr);
-      }
+  //     if (scr === 8) {
+  //       row3.push(...row3, scr);
+  //       column2.push(...column2, scr);
+  //     }
 
-      if (scr === 8) {
-        row3.push(...row3, scr);
-        column2.push(...column2, scr);
-      }
+  //     if (scr === 9) {
+  //       row3.push(...row3, scr);
+  //       column3.push(...column3, scr);
+  //       slide.push(...slide, scr);
+  //     }
+  //   });
 
-      if (scr === 9) {
-        row3.push(...row3, scr);
-        column3.push(...column3, scr);
-        slide.push(...slide, scr);
-      }
-    });
-
-    // code to run to display scores
-    if (row1.includes(1) && row1.includes(2) && row1.includes(3)) {
-      alert("You lose, row 1");
-    } else if (row2.includes(4) && row2.includes(5) && row2.includes(6)) {
-      alert("You lose, row 2");
-    } else if (row3.includes(7) && row3.includes(8) && row3.includes(9)) {
-      alert("You lose, row 3");
-    } else if (
-      column1.includes(1) &&
-      column1.includes(4) &&
-      column1.includes(7)
-    ) {
-      alert("You lose, column 1");
-    } else if (
-      column2.includes(2) &&
-      column2.includes(5) &&
-      column2.includes(8)
-    ) {
-      alert("You lose, column 2");
-    } else if (
-      column3.includes(3) &&
-      column3.includes(6) &&
-      column3.includes(9)
-    ) {
-      alert("You lose, column 3");
-    } else if (slide.includes(1) && slide.includes(5) && slide.includes(9)) {
-      alert("You lose, slide");
-    } else if (clickedMoves.length >= 7) {
-      alert("Draw");
-    }
-  }, [moves]);
+  //   // code to run to display scores
+  //   if (row1.includes(1) && row1.includes(2) && row1.includes(3)) {
+  //     alert("You lose, row 1");
+  //   } else if (row2.includes(4) && row2.includes(5) && row2.includes(6)) {
+  //     alert("You lose, row 2");
+  //   } else if (row3.includes(7) && row3.includes(8) && row3.includes(9)) {
+  //     alert("You lose, row 3");
+  //   } else if (
+  //     column1.includes(1) &&
+  //     column1.includes(4) &&
+  //     column1.includes(7)
+  //   ) {
+  //     alert("You lose, column 1");
+  //   } else if (
+  //     column2.includes(2) &&
+  //     column2.includes(5) &&
+  //     column2.includes(8)
+  //   ) {
+  //     alert("You lose, column 2");
+  //   } else if (
+  //     column3.includes(3) &&
+  //     column3.includes(6) &&
+  //     column3.includes(9)
+  //   ) {
+  //     alert("You lose, column 3");
+  //   } else if (slide.includes(1) && slide.includes(5) && slide.includes(9)) {
+  //     alert("You lose, slide");
+  //   } else if (clickedMoves.length >= 7) {
+  //     alert("Draw");
+  //   }
+  // }, [moves]);
 
   // const [userScore, setUserScore] = useState([]);
   const [userResult, setUserResult] = useState([]);
@@ -431,6 +614,8 @@ const TIcTacToe = () => {
           setComputerScore={setComputerScore}
           setClickedMove={setClickedMove}
           setPlayMessage={setPlayMessage}
+          scores={scores}
+          setScores={setScores}
         />
 
         <div className={styles.move}>
