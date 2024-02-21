@@ -17,6 +17,7 @@ const MoveList = ({
   setPlayMessage,
   scores,
   setScores,
+  isWinner,
 }) => {
   const handleClick = (move) => {
     // check for matching id
@@ -348,7 +349,7 @@ const MoveList = ({
 
   return (
     <div className={styles.boxesContainer}>
-      <div className={styles.boxes}>
+      <div className={`${isWinner ? styles.hideBoxes : styles.boxes}`}>
         {moves.map((move) => (
           <MoveItems
             key={move.id}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/tictactoe.module.css";
 import MoveList from "./MoveList";
 import AvatarList from "./AvatarList";
+import DisplayWinner from "./DisplayWinner";
 
 const TIcTacToe = () => {
   // Looped moves
@@ -32,190 +33,198 @@ const TIcTacToe = () => {
   const [userAvatar, setUserAvatar] = useState("X");
   const [computerAvatar, setComputerAvatar] = useState("O");
 
+  // display message
   const [playMessage, setPlayMessage] = useState("Start game or select player");
 
   const [userScore, setUserScore] = useState([]);
-  const [column2, setColumn2] = useState([]);
+  const [isWinner, setIsWinner] = useState(false);
+  const [winner, setWinner] = useState(computerAvatar);
 
-  // user
-  let userRow11 = [];
-  let userRow22 = [];
-  let userRow33 = [];
-  let userColumn11 = [];
-  let userColumn22 = [];
-  let userColumn33 = [];
-  let userSlide = [];
+  useEffect(() => {
+    // user
+    let userRow11 = [];
+    let userRow22 = [];
+    let userRow33 = [];
+    let userColumn11 = [];
+    let userColumn22 = [];
+    let userColumn33 = [];
+    let userSlide = [];
 
-  // computer
-  let compRow11 = [];
-  let compRow22 = [];
-  let compRow33 = [];
-  let compColumn11 = [];
-  let compColumn22 = [];
-  let compColumn33 = [];
-  let compSlide = [];
+    // computer
+    let compRow11 = [];
+    let compRow22 = [];
+    let compRow33 = [];
+    let compColumn11 = [];
+    let compColumn22 = [];
+    let compColumn33 = [];
+    let compSlide = [];
 
-  const displayScore = (array) => {
-    if (array.length === 3) {
-      if (
-        array[0].move === computerAvatar &&
-        array[1].move === computerAvatar &&
-        array[2].move === computerAvatar
-      ) {
-        console.log("Winner", computerAvatar);
-      } else {
-        console.log("winner", userAvatar);
+    const displayScore = (array) => {
+      if (array.length === 3) {
+        if (
+          array[0].move === computerAvatar &&
+          array[1].move === computerAvatar &&
+          array[2].move === computerAvatar
+        ) {
+          setPlayMessage("Game Over");
+          setIsWinner(true);
+          setWinner(computerAvatar);
+        } else {
+          setPlayMessage("Game Over");
+          setIsWinner(true);
+          setWinner(userAvatar);
+        }
       }
-    }
-  };
+    };
 
-  moves.map((move) => {
-    // Run only when move is equal to userAvatar
-    if (move.move === userAvatar) {
-      // for row 1
-      if (move.id === 1 || move.id === 2 || move.id === 3) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userRow11.push(move);
-          console.log(userRow11);
-          displayScore(userRow11);
+    moves.map((move) => {
+      // Run only when move is equal to userAvatar
+      if (move.move === userAvatar) {
+        // for row 1
+        if (move.id === 1 || move.id === 2 || move.id === 3) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userRow11.push(move);
+            console.log(userRow11);
+            displayScore(userRow11);
+          }
+        }
+
+        // for row 2
+        if (move.id === 4 || move.id === 5 || move.id === 6) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userRow22.push(move);
+            console.log(userRow22);
+            displayScore(userRow22);
+          }
+        }
+
+        // for row 3
+        if (move.id === 7 || move.id === 8 || move.id === 9) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userRow33.push(move);
+            console.log(userRow33);
+            displayScore(userRow33);
+          }
+        }
+
+        // for column 1
+        if (move.id === 1 || move.id === 4 || move.id === 7) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userColumn11.push(move);
+            console.log(userColumn11);
+            displayScore(userColumn11);
+          }
+        }
+
+        // for column 2
+        if (move.id === 2 || move.id === 5 || move.id === 8) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userColumn22.push(move);
+            console.log(userColumn22);
+            displayScore(userColumn22);
+          }
+        }
+
+        // for column 3
+        if (move.id === 3 || move.id === 6 || move.id === 9) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userColumn33.push(move);
+            console.log(userColumn33);
+            displayScore(userColumn33);
+          }
+        }
+
+        // for slide
+        if (move.id === 1 || move.id === 5 || move.id === 9) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            userSlide.push(move);
+            console.log(userSlide);
+            displayScore(userSlide);
+          }
         }
       }
 
-      // for row 2
-      if (move.id === 4 || move.id === 5 || move.id === 6) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userRow22.push(move);
-          console.log(userRow22);
-          displayScore(userRow22);
+      // Run only when move is equal to computerAvatar
+      if (move.move === computerAvatar) {
+        // for row 1
+        if (move.id === 1 || move.id === 2 || move.id === 3) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compRow11.push(move);
+            console.log(compRow11);
+            displayScore(compRow11);
+          }
         }
-      }
 
-      // for row 3
-      if (move.id === 7 || move.id === 8 || move.id === 9) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userRow33.push(move);
-          console.log(userRow33);
-          displayScore(userRow33);
+        // for row 2
+        if (move.id === 4 || move.id === 5 || move.id === 6) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compRow22.push(move);
+            console.log(compRow22);
+            displayScore(compRow22);
+          }
         }
-      }
 
-      // for column 1
-      if (move.id === 1 || move.id === 4 || move.id === 7) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userColumn11.push(move);
-          console.log(userColumn11);
-          displayScore(userColumn11);
+        // for row 3
+        if (move.id === 7 || move.id === 8 || move.id === 9) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compRow33.push(move);
+            console.log(compRow33);
+            displayScore(compRow33);
+          }
         }
-      }
 
-      // for column 2
-      if (move.id === 2 || move.id === 5 || move.id === 8) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userColumn22.push(move);
-          console.log(userColumn22);
-          displayScore(userColumn22);
+        // for column 1
+        if (move.id === 1 || move.id === 4 || move.id === 7) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compColumn11.push(move);
+            console.log(compColumn11);
+            displayScore(compColumn11);
+          }
         }
-      }
 
-      // for column 3
-      if (move.id === 3 || move.id === 6 || move.id === 9) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userColumn33.push(move);
-          console.log(userColumn33);
-          displayScore(userColumn33);
+        // for column 2
+        if (move.id === 2 || move.id === 5 || move.id === 8) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compColumn22.push(move);
+            console.log(compColumn22);
+            displayScore(compColumn22);
+          }
         }
-      }
 
-      // for slide
-      if (move.id === 1 || move.id === 5 || move.id === 9) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          userSlide.push(move);
-          console.log(userSlide);
-          displayScore(userSlide);
+        // for column 3
+        if (move.id === 3 || move.id === 6 || move.id === 9) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compColumn33.push(move);
+            console.log(compColumn33);
+            displayScore(compColumn33);
+          }
         }
-      }
-    }
 
-    // Run only when move is equal to computerAvatar
-    if (move.move === computerAvatar) {
-      // for row 1
-      if (move.id === 1 || move.id === 2 || move.id === 3) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compRow11.push(move);
-          console.log(compRow11);
-          displayScore(compRow11);
+        // for slide
+        if (move.id === 1 || move.id === 5 || move.id === 9) {
+          // to make sure selected moves are not empty before adding them to the array
+          if (move.move !== "") {
+            compSlide.push(move);
+            console.log(compSlide);
+            displayScore(compSlide);
+          }
         }
       }
-
-      // for row 2
-      if (move.id === 4 || move.id === 5 || move.id === 6) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compRow22.push(move);
-          console.log(compRow22);
-          displayScore(compRow22);
-        }
-      }
-
-      // for row 3
-      if (move.id === 7 || move.id === 8 || move.id === 9) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compRow33.push(move);
-          console.log(compRow33);
-          displayScore(compRow33);
-        }
-      }
-
-      // for column 1
-      if (move.id === 1 || move.id === 4 || move.id === 7) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compColumn11.push(move);
-          console.log(compColumn11);
-          displayScore(compColumn11);
-        }
-      }
-
-      // for column 2
-      if (move.id === 2 || move.id === 5 || move.id === 8) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compColumn22.push(move);
-          console.log(compColumn22);
-          displayScore(compColumn22);
-        }
-      }
-
-      // for column 3
-      if (move.id === 3 || move.id === 6 || move.id === 9) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compColumn33.push(move);
-          console.log(compColumn33);
-          displayScore(compColumn33);
-        }
-      }
-
-      // for slide
-      if (move.id === 1 || move.id === 5 || move.id === 9) {
-        // to make sure selected moves are not empty before adding them to the array
-        if (move.move !== "") {
-          compSlide.push(move);
-          console.log(compSlide);
-          displayScore(compSlide);
-        }
-      }
-    }
-  });
+    });
+  }, [clickedMoves]);
 
   // useEffect(() => {
   //   moves.map((move) => {
@@ -616,7 +625,10 @@ const TIcTacToe = () => {
           setPlayMessage={setPlayMessage}
           scores={scores}
           setScores={setScores}
+          isWinner={isWinner}
         />
+
+        <DisplayWinner isWinner={isWinner} winner={winner} />
 
         <div className={styles.move}>
           <div className={styles.resetGame} onClick={handleReset}>
