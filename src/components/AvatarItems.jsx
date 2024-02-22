@@ -6,7 +6,8 @@ const AvatarItems = ({ avatar, ...rest }) => {
       className={`${styles.avatar} ${avatar.status ? styles.border : ""}`}
       {...rest}
     >
-      {avatar.avatar}
+      <p className={styles.p}>{avatar.avatar} </p>{" "}
+      <p className={styles.p}>{avatar.score} </p>
     </div>
   );
 };
