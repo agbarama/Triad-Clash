@@ -25,8 +25,8 @@ const TIcTacToe = () => {
 
   // Avatars array of objects
   const [avatars, setAvatars] = useState([
-    { avatar: "X", status: true },
-    { avatar: "O", status: false },
+    { avatar: "X", status: true, score: 0 },
+    { avatar: "O", status: false, score: 0 },
   ]);
 
   //avatars saved seperated on a state
@@ -39,6 +39,7 @@ const TIcTacToe = () => {
   const [userScore, setUserScore] = useState([]);
   const [isWinner, setIsWinner] = useState(false);
   const [winner, setWinner] = useState(computerAvatar);
+  const [movesWin, setMovesWin] = useState(false);
 
   useEffect(() => {
     // user
@@ -61,35 +62,63 @@ const TIcTacToe = () => {
 
     const displayScore = (array, x1, x2, x3) => {
       if (array.length === 3) {
+        // make sure all 3 user moves are played before running code
         if (
+          array[0].move === userAvatar &&
+          array[1].move === userAvatar &&
+          array[2].move === userAvatar
+        ) {
+          // toggle won user moves
+          moves.map((move) => {
+            if (move.id === x1 || move.id === x2 || move.id === x3) {
+              move.win = true;
+            }
+          });
+          setMoves(moves);
+
+          setPlayMessage("Game Over");
+
+          setTimeout(() => {
+            setWinner(userAvatar);
+            setIsWinner(true);
+
+            // set user score count
+            avatars.map((avatar) =>
+              avatar.avatar === userAvatar
+                ? (avatar.score = avatar.score + 1)
+                : (avatar.score = avatar.score)
+            );
+            setAvatars(avatars);
+          }, 3000);
+        }
+
+        // make sure all 3 computer moves are played before run code
+        else if (
           array[0].move === computerAvatar &&
           array[1].move === computerAvatar &&
           array[2].move === computerAvatar
         ) {
+          // toggle won computer moves
           moves.map((move) => {
             if (move.id === x1 || move.id === x2 || move.id === x3) {
               move.win = true;
-              console.log(move);
-            } else {
-              move;
             }
           });
-
           setMoves(moves);
-          console.log(moves);
 
           setPlayMessage("Game Over");
 
           setTimeout(() => {
             setIsWinner(true);
             setWinner(computerAvatar);
-          }, 3000);
-        } else {
-          setPlayMessage("Game Over");
 
-          setTimeout(() => {
-            setWinner(userAvatar);
-            setIsWinner(true);
+            // set computer score count
+            avatars.map((avatar) =>
+              avatar.avatar === computerAvatar
+                ? (avatar.score = avatar.score + 1)
+                : (avatar.score = avatar.score)
+            );
+            setAvatars(avatars);
           }, 3000);
         }
       }
@@ -154,7 +183,7 @@ const TIcTacToe = () => {
           if (move.move !== "") {
             userColumn33.push(move);
             console.log(userColumn33);
-            displayScore(userColumn33);
+            displayScore(userColumn33, 3, 6, 9);
           }
         }
 
@@ -608,6 +637,7 @@ const TIcTacToe = () => {
   // function to reset game
   const handleReset = () => {
     setIsWinner(false);
+    setMovesWin(false);
     setPlayMessage("Start game or select player");
     // map and save all objects containing a move and also return back objects that are empty
     const clearMoves = moves.map((move) => (move.move !== "" ? move : move));
@@ -655,6 +685,7 @@ const TIcTacToe = () => {
           scores={scores}
           setScores={setScores}
           isWinner={isWinner}
+          movesWin={movesWin}
         />
 
         <DisplayWinner isWinner={isWinner} winner={winner} />
