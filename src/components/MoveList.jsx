@@ -18,6 +18,8 @@ const MoveList = ({
   scores,
   setScores,
   isWinner,
+  movesWin,
+  setIsPlayed,
 }) => {
   const handleClick = (move) => {
     // check for matching id
@@ -50,6 +52,8 @@ const MoveList = ({
 
     setScores([...scores, move]);
     setClickedMove(move);
+    setIsPlayed(move);
+
     // setTotalMoves([...totalMoves, move]);
   };
 
@@ -76,14 +80,28 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === ""
-        ? (ar.move = computerAvatar)
-        : setComputerScore([...computerScore, arr])
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === ""
+    //     ? (ar.move = computerAvatar)
+    //     : setComputerScore([...computerScore, arr])
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : setComputerScore([ar])
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 2
@@ -111,10 +129,24 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) => (ar.move == "" ? (ar.move = computerAvatar) : arr));
+    // // Execute computer move
+    // arr.find((ar) => (ar.move == "" ? (ar.move = computerAvatar) : arr));
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 3
@@ -140,12 +172,26 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 4
@@ -171,12 +217,26 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 5
@@ -215,12 +275,26 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 6
@@ -246,16 +320,33 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+      console.log("movesWin", true);
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 7
   const box7 = (move) => {
+    console.log(movesWin);
+
     const arr = [];
     let filledBox;
 
@@ -277,12 +368,28 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+      console.log("movesWin", false);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+      console.log("movesWin", true);
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 8
@@ -308,12 +415,26 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   // Box 9
@@ -339,12 +460,26 @@ const MoveList = ({
       }
     }
 
-    setPlayMessage(`${userAvatar} Turn`);
+    // setPlayMessage(`${userAvatar} Turn`);
 
-    // Execute computer move
-    arr.find((ar) =>
-      ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
-    );
+    // // Execute computer move
+    // arr.find((ar) =>
+    //   ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+    // );
+
+    // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
+    if (movesWin !== true) {
+      setPlayMessage(`${userAvatar} Turn`);
+
+      // Execute computer move
+      arr.find((ar) =>
+        ar.move === "" ? (ar.move = computerAvatar) : console.log("u")
+      );
+    } else {
+      setPlayMessage("Game Over");
+    }
+
+    setIsPlayed(arr);
   };
 
   return (

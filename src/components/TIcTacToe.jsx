@@ -18,11 +18,6 @@ const TIcTacToe = () => {
     { id: 9, move: "", win: false },
   ]);
 
-  const [clickedMoves, setClickedMoves] = useState([]);
-  const [clickedMove, setClickedMove] = useState();
-  const [scores, setScores] = useState([]);
-  const [computerScore, setComputerScore] = useState([]);
-
   // Avatars array of objects
   const [avatars, setAvatars] = useState([
     { avatar: "X", status: true, score: 0 },
@@ -33,8 +28,15 @@ const TIcTacToe = () => {
   const [userAvatar, setUserAvatar] = useState("X");
   const [computerAvatar, setComputerAvatar] = useState("O");
 
-  // display message
+  // Display message
   const [playMessage, setPlayMessage] = useState("Start game or select player");
+
+  const [computerScore, setComputerScore] = useState([]);
+  const [isPlayed, setIsPlayed] = useState("");
+
+  const [clickedMoves, setClickedMoves] = useState([]);
+  const [clickedMove, setClickedMove] = useState();
+  const [scores, setScores] = useState([]);
 
   const [userScore, setUserScore] = useState([]);
   const [isWinner, setIsWinner] = useState(false);
@@ -271,7 +273,7 @@ const TIcTacToe = () => {
         }
       }
     });
-  }, [clickedMoves]);
+  }, [isPlayed]);
 
   // useEffect(() => {
   //   moves.map((move) => {
@@ -542,7 +544,7 @@ const TIcTacToe = () => {
   //   // map and save id to array above
   //   moves.map((move) =>
   //     move.move === computerAvatar
-  //       ? computeScore.push(...computerScore, move.id)
+  //       ? computeScore.push(...computeScore, move.id)
   //       : moves
   //   );
 
@@ -596,36 +598,56 @@ const TIcTacToe = () => {
   //     }
   //   });
 
-  //   // code to run to display scores
-  //   if (row1.includes(1) && row1.includes(2) && row1.includes(3)) {
-  //     alert("You lose, row 1");
-  //   } else if (row2.includes(4) && row2.includes(5) && row2.includes(6)) {
-  //     alert("You lose, row 2");
-  //   } else if (row3.includes(7) && row3.includes(8) && row3.includes(9)) {
-  //     alert("You lose, row 3");
-  //   } else if (
-  //     column1.includes(1) &&
-  //     column1.includes(4) &&
-  //     column1.includes(7)
-  //   ) {
-  //     alert("You lose, column 1");
-  //   } else if (
-  //     column2.includes(2) &&
-  //     column2.includes(5) &&
-  //     column2.includes(8)
-  //   ) {
-  //     alert("You lose, column 2");
-  //   } else if (
-  //     column3.includes(3) &&
-  //     column3.includes(6) &&
-  //     column3.includes(9)
-  //   ) {
-  //     alert("You lose, column 3");
-  //   } else if (slide.includes(1) && slide.includes(5) && slide.includes(9)) {
-  //     alert("You lose, slide");
-  //   } else if (clickedMoves.length >= 7) {
-  //     alert("Draw");
-  //   }
+  //   // // code to run to display scores
+  //   // if (row1.includes(1) && row1.includes(2) && row1.includes(3)) {
+  //   //   alert("You lose, row 1");
+  //   // } else if (row2.includes(4) && row2.includes(5) && row2.includes(6)) {
+  //   //   alert("You lose, row 2");
+  //   // } else if (row3.includes(7) && row3.includes(8) && row3.includes(9)) {
+  //   //   alert("You lose, row 3");
+  //   // } else if (
+  //   //   column1.includes(1) &&
+  //   //   column1.includes(4) &&
+  //   //   column1.includes(7)
+  //   // ) {
+  //   //   alert("You lose, column 1");
+  //   // } else if (
+  //   //   column2.includes(2) &&
+  //   //   column2.includes(5) &&
+  //   //   column2.includes(8)
+  //   // ) {
+  //   //   alert("You lose, column 2");
+  //   // } else if (
+  //   //   column3.includes(3) &&
+  //   //   column3.includes(6) &&
+  //   //   column3.includes(9)
+  //   // ) {
+  //   //   alert("You lose, column 3");
+  //   // } else if (slide.includes(1) && slide.includes(5) && slide.includes(9)) {
+  //   //   alert("You lose, slide");
+  //   // } else if (clickedMoves.length >= 7) {
+  //   //   alert("Draw");
+  //   // }
+
+  //   const rowOne = row1.join(",");
+  //   const rowTwo = row2.join(",");
+  //   const rowThree = row3.join(",");
+
+  //   const columnOne = column1.join(",");
+  //   const columnTwo = column2.join(",");
+  //   const columnThree = column3.join(",");
+  //   const slid = slide.join(",");
+
+  //   setScore({
+  //     ...score,
+  //     row1: rowOne,
+  //     row2: rowTwo,
+  //     row3: rowThree,
+  //     column1: columnOne,
+  //     column2: columnTwo,
+  //     colum3: columnThree,
+  //     slide: slid,
+  //   });
   // }, [moves]);
 
   // const [userScore, setUserScore] = useState([]);
@@ -686,6 +708,7 @@ const TIcTacToe = () => {
           setScores={setScores}
           isWinner={isWinner}
           movesWin={movesWin}
+          setIsPlayed={setIsPlayed}
         />
 
         <DisplayWinner isWinner={isWinner} winner={winner} />
