@@ -7,8 +7,8 @@ const Avatars = ({ avatars, setAvatars, setUserAvatar, setComputerAvatar }) => {
       setUserAvatar("X");
       setComputerAvatar("O");
       setAvatars([
-        { avatar: "X", status: true },
-        { avatar: "O", status: false },
+        { avatar: "X", status: true, score: 0 },
+        { avatar: "O", status: false, score: 0 },
       ]);
     }
 
@@ -16,8 +16,8 @@ const Avatars = ({ avatars, setAvatars, setUserAvatar, setComputerAvatar }) => {
       setUserAvatar("O");
       setComputerAvatar("X");
       setAvatars([
-        { avatar: "X", status: false },
-        { avatar: "O", status: true },
+        { avatar: "X", status: false, score: 0 },
+        { avatar: "O", status: true, score: 0 },
       ]);
     }
   };
