@@ -23,22 +23,6 @@
       padding: 5% 90px; */
       border-radius: 5px;
     }
-
-    .move {
-      display: flex;
-      flex-direction: row;
-      gap: 15px;
-      font-size: 14px;
-      background-color: grey;
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-
-      .resetGame {
-        /* font-size: 14px; */
-        cursor: pointer;
-      }
-    }
   }
 
   .footer {

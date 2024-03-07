@@ -1,0 +1,14 @@
+.move {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  font-size: 14px;
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+
+  .resetGame {
+    cursor: pointer;
+  }
+}
