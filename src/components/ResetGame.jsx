@@ -7,8 +7,18 @@ const ResetGame = ({
   setPlayMessage,
   moves,
   setMoves,
+  setHidemovesList,
+  setIsDraw,
+  setDraw,
+  setClickedMoves,
+  setScores,
 }) => {
   const handleReset = () => {
+    setHidemovesList(false);
+    setDraw(true);
+    setIsDraw(false);
+    setClickedMoves([]);
+    setScores([]);
     setWinner("");
     setIsWinner(false);
     setMovesWin(false);

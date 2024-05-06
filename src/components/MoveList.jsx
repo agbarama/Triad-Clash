@@ -17,7 +17,9 @@ const MoveList = ({
   setPlayMessage,
   scores,
   setScores,
+  hideMovesList,
   isWinner,
+  isDraw,
   movesWin,
   setIsPlayed,
 }) => {
@@ -39,6 +41,8 @@ const MoveList = ({
 
     // set a timeout so as to run computer move after 1sec of user move
     setTimeout(() => {
+      console.log(movesWin);
+
       box1(move);
       box2(move);
       box3(move);
@@ -52,7 +56,7 @@ const MoveList = ({
 
     setScores([...scores, move]);
     setClickedMove(move);
-    setIsPlayed(move);
+    setIsPlayed("click");
 
     // setTotalMoves([...totalMoves, move]);
   };
@@ -64,44 +68,107 @@ const MoveList = ({
 
     if (move.id === 1) {
       moves.map((movve) => {
-        if (movve.id === 2 || movve.id === 3) {
-          arr.push(...arr, movve);
+        if (
+          movve.id === 2 ||
+          movve.id === 3 ||
+          movve.id === 4 ||
+          movve.id === 7 ||
+          movve.id === 5
+        ) {
+          if (movve.move === "") {
+            arr.push(movve);
+            console.log(arr);
+          }
+          // if (movve.weight >= 3 && movve.move === "") {
+          //   arr.push(movve);
+          //   console.log(movve);
+          // } else if (movve.weight === 1 && movve.move === "") {
+          //   arr.push(movve);
+          // }
+          // arr.push(movve);
+          // console.log(arr);
 
           // map through and check if move 2 & 3 have been made and save in a variable
-          filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
+          // filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
+          if (movve.id === 1 || movve.id === 5) {
+            return movve.move !== userAvatar
+              ? console.log(movve)
+              : (movve.move = computerAvatar);
+          }
         }
       });
 
+      // sortedArr.find((ar) =>
+      //   ar.move === "" ? (ar.move = computerAvatar) : setComputerScore([ar])
+      // );
+
+      // const sortedArr = arr.sort((a, b) => {
+      //   return parseInt(a.weight) >= parseInt(b.weight) ? -1 : 1;
+      // });
+
+      // console.log(sortedArr);
+
+      let isFilled;
+      // arr.find((ar) => {
+      //   if (ar.weight === 4) {
+      //     ar.move = computerAvatar;
+      //     console.log(" empty");
+      //   }
+      // });
+
+      // // Execute computer move
+      // sortedArr.find((ar) =>
+      //   ar.move === "" ? (ar.move = computerAvatar) : setComputerScore([ar])
+      // );
+
       // Run this code if box 2 & 3 is filled
-      if (filledBox[0] === true) {
-        moves.map((movve) => {
-          movve.id === 4 || movve.id === 7 ? arr.push(...arr, movve) : moves;
-        });
-      }
+      // if (filledBox[0] === true) {
+      //   moves.map((movve) => {
+      //     movve.id === 4 || movve.id === 7 ? arr.push(...arr, movve) : moves;
+      //   });
+      // }
     }
 
-    // setPlayMessage(`${userAvatar} Turn`);
+    // if (move.id === 1) {
+    //   moves.map((movve) => {
+    //     if (movve.id === 2 || movve.id === 3) {
+    //       arr.push(...arr, movve);
 
-    // // Execute computer move
-    // arr.find((ar) =>
-    //   ar.move === ""
-    //     ? (ar.move = computerAvatar)
-    //     : setComputerScore([...computerScore, arr])
-    // );
+    //       // map through and check if move 2 & 3 have been made and save in a variable
+    //       filledBox = arr.map((ar) => (ar.move !== "" ? true : false));
+    //     }
+    //   });
+
+    //   // Run this code if box 2 & 3 is filled
+    //   if (filledBox[0] === true) {
+    //     moves.map((movve) => {
+    //       movve.id === 4 || movve.id === 7 ? arr.push(...arr, movve) : moves;
+    //     });
+    //   }
+    // }
+
+    setPlayMessage(`${userAvatar} Turn`);
+
+    // Execute computer move
+    arr.find((ar) =>
+      ar.move === ""
+        ? (ar.move = computerAvatar)
+        : setComputerScore([...computerScore, arr])
+    );
 
     // first check if movesWin is not true before executing computer move to aviod executing computer move after user win
-    if (movesWin !== true) {
-      setPlayMessage(`${userAvatar} Turn`);
+    // if (movesWin !== true) {
+    setPlayMessage(`${userAvatar} Turn`);
 
-      // Execute computer move
-      arr.find((ar) =>
-        ar.move === "" ? (ar.move = computerAvatar) : setComputerScore([ar])
-      );
-    } else {
-      setPlayMessage("Game Over");
-    }
+    //   // Execute computer move
+    //   arr.find((ar) =>
+    //     ar.move === "" ? (ar.move = computerAvatar) : setComputerScore([ar])
+    //   );
+    // } else {
+    //   setPlayMessage("Game Over");
+    // }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 1");
   };
 
   // Box 2
@@ -146,7 +213,7 @@ const MoveList = ({
       setPlayMessage("Game Over");
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 2");
   };
 
   // Box 3
@@ -191,7 +258,7 @@ const MoveList = ({
       setPlayMessage("Game Over");
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 3");
   };
 
   // Box 4
@@ -236,7 +303,7 @@ const MoveList = ({
       setPlayMessage("Game Over");
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 4");
   };
 
   // Box 5
@@ -294,7 +361,7 @@ const MoveList = ({
       setPlayMessage("Game Over");
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 5");
   };
 
   // Box 6
@@ -340,7 +407,7 @@ const MoveList = ({
       console.log("movesWin", true);
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 6");
   };
 
   // Box 7
@@ -389,7 +456,7 @@ const MoveList = ({
       console.log("movesWin", true);
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 7");
   };
 
   // Box 8
@@ -434,7 +501,7 @@ const MoveList = ({
       setPlayMessage("Game Over");
     }
 
-    setIsPlayed(arr);
+    setIsPlayed("box 8");
   };
 
   // Box 9
@@ -484,7 +551,7 @@ const MoveList = ({
 
   return (
     <div className={styles.boxesContainer}>
-      <div className={`${isWinner ? styles.hideBoxes : styles.boxes}`}>
+      <div className={`${hideMovesList ? styles.hideBoxes : styles.boxes}`}>
         {moves.map((move) => (
           <MoveItems
             key={move.id}
